@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshya's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #733B2F;
+            background-color: #F2F2F2;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #A69151;
+            padding: 20px;
+            padding-bottom: 0;
+        }
+
+        .intro {
+            padding: 20px;
+            padding-top: 10px;
+            max-width: 800px;
+        }
+
+        .intro p {
+            margin-bottom: 5px;
+        }
+
+        .projects {
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-bottom: 20px;
+        }
+
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            flex: 0 0 auto;
+            width: calc(100% - 40px);
+            margin: 0 20px;
+            scroll-snap-align: start;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            color: #A66038;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+        }
+
+        .about h1 {
+            font-size: 3rem;
+            color: #A69151;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        .content {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .project-card {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-container {
+            width: 300px; /* Fixed width */
+            height: 200px; /* Fixed height */
+            overflow: hidden; /* Hide overflow */
+        }   
+            .fixed-image {
+            width: 100%; /* Make image fill the container
+            height: auto; /* Maintain aspect ratio */
+        }    
+
+        .project-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .card-content h2 {
+            margin-bottom: 0.5rem;
+            color: #A66038;
+        }
+
+        .read-more {
+            background-color: #A66038;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .read-more:hover {
+            background-color: #8C7E54;
+        }
+
+        .card-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .card-details h3 {
+            margin-bottom: 1rem;
+            color: #A66038;
+        }
+
+        .card-details ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .close-details {
+            background-color: #A66038;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-details:hover {
+            background-color: #8C7E54;
+        }
+
+        .info-section {
+            flex: 1;
+        }
+
+        .info-text {
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .info-cards {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .info-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #733B2F;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-card:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .info-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .card {
+                width: calc(50% - 40px);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .card {
+                width: calc(33.333% - 40px);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .card {
+                width: calc(25% - 40px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            .intro {
+                padding: 15px;
+            }
+
+            .content {
+                flex-direction: column;
+            }
+
+            .info-cards {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .intro {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.ibb.co/CwGbbT0/pexels-timrael-2474689.jpg" alt="Banner" class="banner-image">
+    </header>
+    <main>
+        <h1>HOME</h1>
+        <section class="intro">
+            <p>Welcome!</p>
+            <p>I'm Akshya, a third-year UI/UX design student at PES University.</p>
+            <p>I create user-centered designs that blend functionality and aesthetics.</p>
+            <p>Explore my portfolio to see my work. Thanks for visiting!</p>
+        </section>
+        <section class="projects">
+            <div class="carousel">
+                <div class="card">
+                    <img src="https://i.ibb.co/CQ1cQ14/Screenshot-2024-10-03-at-10-19-31-PM.png" alt="Digitising Stove's Interface">
+                    <div class="card-content">
+                        <h3>DIGITISING STOVE'S INTERFACE</h3>
+                        <p>SmartStove Interface Redesign: This project digitizes a traditional stove interface enhancing usability and safety.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://i.ibb.co/2P5rKh3/Screenshot-2024-10-05-at-7-43-03-PM.png" alt="A Day in Design">
+                    <div class="card-content">
+                        <h3>A Day in Design</h3>
+                        <p>This zine offers a snapshot of a designer's daily life, highlighting the creative process and inspiration behind each project.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://i.ibb.co/ph98RFg/Screenshot-2024-10-05-at-7-43-21-PM.png" alt="Nursery Rhyme Representation">
+                    <div class="card-content">
+                        <h3>Nursery Rhyme Representation</h3>
+                        <p>This project utilizes semiotics to explore the rich symbolism within a nursery rhyme.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://i.ibb.co/r3ZXxQr/Screenshot-2024-10-05-at-7-50-30-PM.png" alt="Brand Visual Guidelines">
+                    <div class="card-content">
+                        <h3>Brand Visual Guidelines</h3>
+                        <p>These brand visual guidelines define the essential elements of our brand identity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <h1>ABOUT</h1>
+            <p class="description">My journey in design combines aesthetics with functionality, and I thrive on hands-on projects that challenge my creativity. Always eager to learn, I aim to craft solutions that truly resonate with users.</p>
+        </section>
+
+        <section class="content">
+            <div class="project-card" id="project-card">
+                <img src="https://i.ibb.co/nj7yLWR/Screenshot-2024-10-14-at-7-36-30-PM.png" alt="Project Image">
+                <div class="card-content">
+                    <h2>About Me</h2>
+                    <p>With a passion for creating intuitive and engaging user experiences, I've honed my skills through hands-on projects and collaborations. My journey in design began with a fascination for how aesthetics and functionality intertwine, leading me to explore various design methodologies and tools. </p>
+                    <button class="read-more">Read More</button>
+                </div>
+                <div class="card-details">
+                    <h3>Project Details</h3>
+                    <p>This project showcases the perfect blend of aesthetics and functionality. It involved creating a responsive web application that adapts seamlessly to various devices while maintaining an intuitive user interface.</p>
+                    <ul>
+                        <li>Implemented using HTML5, CSS3, and JavaScript</li>
+                        <li>Incorporated modern design trends and animations</li>
+                        <li>Optimized for performance and accessibility</li>
+                    </ul>
+                    <button class="close-details">Close</button>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <p class="info-text">
+                    Personal Motto:<br>
+                    "Create with intention, design with authenticity."
+                </p>
+                <div class="info-cards">
+                    <a href="#" class="info-card resume" id="resume-card">
+                        <img src="https://i.ibb.co/Dr70SjP/Screenshot-2024-10-14-at-7-45-29-PM.png" alt="Resume">
+                        <span>Resume Download</span>
+                    </a>
+                    <a href="#" class="info-card skills" id="skills-card">
+                        <img src="https://i.ibb.co/1sj3GRB/Screenshot-2024-10-14-at-7-45-38-PM.png" alt="Skills">
+                        <span>Skills Overview</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-text"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshya - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F2F2F2;
+            color: #733B2F;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: left;
+            padding: 50px 0;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            color: #A69151;
+            margin-bottom: 20px;
+        }
+        
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .project-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .project-card .content {
+            padding: 20px;
+        }
+        
+        .project-card h3 {
+            margin-top: 0;
+            color: #A66038;
+        }
+        
+        .project-card p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .footer-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-image:hover {
+            opacity: 0.8;
+        }
+        
+        .contact-section {
+            background-image: url('https://i.ibb.co/jDwzgBP/Screenshot-2024-10-05-at-7-43-03-PM.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-content {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: left;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .contact-content h1 {
+            font-size: 4rem;
+            color: #A69151;
+            margin-bottom: 30px;
+            margin-top: 0;
+        }
+        
+        .contact-info {
+            margin-bottom: 30px;
+        }
+        
+        .contact-info p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: #733B2F;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: #A69151;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .projects {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PROJECTS</h1>
+        </header>
+        
+        <main>
+            
+
+ </section>
+ <section class="projects">
+     <div class="carousel">
+         <div class="card">
+             <img src="https://i.ibb.co/CQ1cQ14/Screenshot-2024-10-03-at-10-19-31-PM.png" alt="Digitising Stove's Interface">
+             <div class="card-content">
+                 <h3>DIGITISING STOVE'S INTERFACE</h3>
+                 <p>SmartStove Interface Redesign: This project digitizes a traditional stove interface enhancing usability and safety.</p>
+             </div>
+         </div>
+         <div class="card">
+             <img src="https://i.ibb.co/2P5rKh3/Screenshot-2024-10-05-at-7-43-03-PM.png" alt="A Day in Design">
+             <div class="card-content">
+                 <h3>A Day in Design</h3>
+                 <p>This zine offers a snapshot of a designer's daily life, highlighting the creative process and inspiration behind each project.</p>
+             </div>
+         </div>
+         <div class="card">
+             <img src="https://i.ibb.co/ph98RFg/Screenshot-2024-10-05-at-7-43-21-PM.png" alt="Nursery Rhyme Representation">
+             <div class="card-content">
+                 <h3>Nursery Rhyme Representation</h3>
+                 <p>This project utilizes semiotics to explore the rich symbolism within a nursery rhyme.</p>
+             </div>
+         </div>
+         <div class="card">
+             <img src="https://i.ibb.co/r3ZXxQr/Screenshot-2024-10-05-at-7-50-30-PM.png" alt="Brand Visual Guidelines">
+             <div class="card-content">
+                 <h3>Brand Visual Guidelines</h3>
+                 <p>These brand visual guidelines define the essential elements of our brand identity.</p>
+             </div>
+         </div>
+     </div>
+ </section>
+        </main>
+        
+        <footer>
+            <img src="https://i.ibb.co/CwGbbT0/pexels-timrael-2474689.jpg" alt="Footer Image" class="footer-image">
+        </footer>
+    </div>
+
+    <section class="contact-section">
+        <div class="contact-content">
+            <h1>CONTACT</h1>
+            <div class="contact-info">
+                <p>+91 123456789</p>
+                <p>akshya.kumar@gmail.com</p>
+                <p>Bangalore</p>
+            </div>
+            <div class="social-icons">
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
